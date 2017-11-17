@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include "Racional.hpp"
 
 template<typename T>
 class basic_complex {
@@ -20,17 +19,7 @@ public:
 	~basic_complex() {}
 
 	friend std::ostream& operator << (std::ostream& ou, const basic_complex<T>& cn) {
-		if (cn.re != 0 && cn.im != 0) {
-			if (cn.im >= 0) {
-				ou << cn.re << "+" << cn.im << "i";
-			} else {
-				ou << cn.re << "-" << (cn.im * -1) << "i";
-			}
-		} else if (cn.im != 0) {
-			ou << cn.im << "i";
-		} else {
-			ou << cn.re;
-		}
+		ou << "(" << cn.re << "|" << cn.im << ")";
 		return ou;
 	}
 
@@ -46,7 +35,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator + (const basic_complex<T>& oc) {
+	basic_complex operator + (const basic_complex<T>& oc) const {
 		basic_complex<T> r(re, im);
 		r += oc;
 		return r;
@@ -58,7 +47,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator - (const basic_complex<T>& oc) {
+	basic_complex operator - (const basic_complex<T>& oc) const {
 		basic_complex<T> r(re, im);
 		r -= oc;
 		return r;
@@ -72,7 +61,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator * (const basic_complex<T>& oc) {
+	basic_complex operator * (const basic_complex<T>& oc) const {
 		basic_complex<T> r(re, im);
 		r *= oc;
 		return r;
@@ -89,7 +78,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator / (const basic_complex<T>& oc) {
+	basic_complex operator / (const basic_complex<T>& oc) const {
 		basic_complex<T> r(re, im);
 		r /= oc;
 		return r;
@@ -106,7 +95,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator + (T oc) {
+	basic_complex operator + (T oc) const {
 		basic_complex<T> r(re, im);
 		r += oc;
 		return r;
@@ -117,7 +106,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator - (T oc) {
+	basic_complex operator - (T oc) const {
 		basic_complex<T> r(re, im);
 		r -= oc;
 		return r;
@@ -129,7 +118,7 @@ public:
 		return *this;
 	}
 
-	basic_complex operator * (T oc) {
+	basic_complex operator * (T oc) const {
 		basic_complex<T> r(re, im);
 		r *= oc;
 		return r;
@@ -141,18 +130,40 @@ public:
 		return *this;
 	}
 
-	basic_complex operator / (T oc) {
+	basic_complex operator / (T oc) const {
 		basic_complex<T> r(re, im);
 		r /= oc;
 		return r;
 	}
 
-	bool operator == (const basic_complex<T>& oc) {
+	// Comp <-> Comp ----------------------------------------------------------------
+	
+	bool operator == (const basic_complex<T>& oc) const {
 		return (re == oc.re) && (im == oc.im);
 	}
 
-	bool operator != (const basic_complex<T>& oc) {
+	bool operator != (const basic_complex<T>& oc) const {
 		return !(*this == oc);
+	}
+
+	// Comp <-> T ----------------------------------------------------------------
+
+	bool operator == (T oc) const {
+		return (re == oc) && (im == 0);
+	}
+
+	bool operator != (T oc) const {
+		return !(*this == oc);
+	}
+
+	// T <-> Comp ----------------------------------------------------------------
+
+	friend bool operator == (T oc, const basic_complex<T>& th) {
+		return (th.re == oc) && (th.im == 0);
+	}
+
+	friend bool operator != (T oc, const basic_complex<T>& th) {
+		return !(th == oc);
 	}
 
 };

@@ -267,6 +267,10 @@ public:
 		return numerator / denominator;
 	}
 
+	operator T () {
+		return val();
+	}
+
 };
 
 typedef basic_racional<int> racional;
