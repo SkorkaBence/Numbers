@@ -20,6 +20,9 @@ private:
 	T GreatestCommonDivisor(T a, T b) {
 		a = abs(a);
 		b = abs(b);
+		if (a == 0 || b == 0 || a == 1 || b == 1) {
+			return 1;
+		}
 		while (a != b) {
 			if (a > b) {
 				a -= b;
@@ -39,6 +42,12 @@ private:
 		T div = GreatestCommonDivisor(numerator, denominator);
 		numerator /= div;
 		denominator /= div;
+		if (denominator == 0) {
+			throw 0;
+		}
+		if (numerator == 0) {
+			denominator = 1;
+		}
 	}
 
 public:
@@ -59,6 +68,12 @@ public:
 			out << dt.numerator << "/" << dt.denominator;
 		}
 		return out;
+	}
+
+	basic_racional& operator = (const basic_racional<T>& ot) {
+		numerator = ot.numerator;
+		denominator = ot.denominator;
+		return *this;
 	}
 
 	basic_racional& operator += (const basic_racional<T>& ot) {
@@ -113,10 +128,59 @@ public:
 		return r;
 	}
 
-	basic_racional& operator = (const basic_racional<T>& ot) {
-		numerator = ot.numerator;
-		denominator = ot.denominator;
+	basic_racional& operator = (T ot) {
+		numerator = ot;
+		denominator = 1;
 		return *this;
+	}
+
+	basic_racional& operator += (T ot) {
+		numerator += ot * denominator;
+		Simplification();
+		return *this;
+	}
+
+	basic_racional operator + (T ot) const {
+		basic_racional<T> r(numerator, denominator);
+		r += ot;
+		return r;
+	}
+
+	basic_racional& operator -= (T ot) {
+		numerator -= ot * denominator;
+		denominator *= ot.denominator;
+		Simplification();
+		return *this;
+	}
+
+	basic_racional operator - (T ot) const {
+		basic_racional<T> r(numerator, denominator);
+		r -= ot;
+		return r;
+	}
+
+	basic_racional& operator *= (T ot) {
+		numerator *= ot;
+		Simplification();
+		return *this;
+	}
+
+	basic_racional operator * (T ot) const {
+		basic_racional<T> r(numerator, denominator);
+		r *= ot;
+		return r;
+	}
+
+	basic_racional& operator /= (T ot) {
+		denominator *= ot;
+		Simplification();
+		return *this;
+	}
+
+	basic_racional operator / (T ot) const {
+		basic_racional<T> r(numerator, denominator);
+		r /= ot;
+		return r;
 	}
 
 	// rac <-> rac ----------------------------------------------------------------

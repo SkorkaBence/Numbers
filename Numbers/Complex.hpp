@@ -95,6 +95,58 @@ public:
 		return r;
 	}
 
+	basic_complex& operator = (T oc) {
+		re = oc;
+		im = 0;
+		return *this;
+	}
+
+	basic_complex& operator += (T oc) {
+		re += oc;
+		return *this;
+	}
+
+	basic_complex operator + (T oc) {
+		basic_complex<T> r(re, im);
+		r += oc;
+		return r;
+	}
+
+	basic_complex& operator -= (T oc) {
+		re -= oc;
+		return *this;
+	}
+
+	basic_complex operator - (T oc) {
+		basic_complex<T> r(re, im);
+		r -= oc;
+		return r;
+	}
+
+	basic_complex& operator *= (T oc) {
+		re *= oc;
+		im *= oc;
+		return *this;
+	}
+
+	basic_complex operator * (T oc) {
+		basic_complex<T> r(re, im);
+		r *= oc;
+		return r;
+	}
+
+	basic_complex& operator /= (T oc) {
+		re /= oc;
+		im /= oc;
+		return *this;
+	}
+
+	basic_complex operator / (T oc) {
+		basic_complex<T> r(re, im);
+		r /= oc;
+		return r;
+	}
+
 	bool operator == (const basic_complex<T>& oc) {
 		return (re == oc.re) && (im == oc.im);
 	}
