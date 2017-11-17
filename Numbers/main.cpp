@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Complex.h"
+#include "Complex.hpp"
 
 int main() {
 	basic_complex<racional> c1(3, 2);

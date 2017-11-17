@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Racional.h"
+#include "Racional.hpp"
 
 template<typename T>
 class basic_complex {
