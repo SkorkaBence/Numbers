@@ -263,12 +263,16 @@ public:
 		return (th < ot) || (th > ot);
 	}
 
-	T val() {
+	T val() const {
 		return numerator / denominator;
 	}
 
-	operator T () {
-		return val();
+	double double_val() const {
+		return numerator / denominator;
+	}
+
+	operator double () const {
+		return double_val();
 	}
 
 };
