@@ -23,7 +23,7 @@
     <ClInclude Include="Complex.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Racional.hpp">
+    <ClInclude Include="Rational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

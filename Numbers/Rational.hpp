@@ -3,7 +3,7 @@
 #include <iostream>
 
 template<typename T>
-class basic_racional {
+class basic_rational {
 private:
 
 	T numerator;
@@ -52,16 +52,16 @@ private:
 
 public:
 
-	basic_racional() : numerator(0), denominator(1) {}
-	basic_racional(T n) : numerator(n), denominator(1) {}
-	basic_racional(T n, T d) : numerator(n), denominator(d) {
+	basic_rational() : numerator(0), denominator(1) {}
+	basic_rational(T n) : numerator(n), denominator(1) {}
+	basic_rational(T n, T d) : numerator(n), denominator(d) {
 		Simplification();
 	}
-	basic_racional(const basic_racional<T>& r) : numerator(r.numerator), denominator(r.denominator) {}
+	basic_rational(const basic_rational<T>& r) : numerator(r.numerator), denominator(r.denominator) {}
 
-	~basic_racional() {}
+	~basic_rational() {}
 
-	friend std::ostream& operator << (std::ostream& out, const basic_racional<T>& dt) {
+	friend std::ostream& operator << (std::ostream& out, const basic_rational<T>& dt) {
 		if (dt.denominator == 1) {
 			out << dt.numerator;
 		} else {
@@ -70,154 +70,154 @@ public:
 		return out;
 	}
 
-	basic_racional& operator = (const basic_racional<T>& ot) {
+	basic_rational& operator = (const basic_rational<T>& ot) {
 		numerator = ot.numerator;
 		denominator = ot.denominator;
 		return *this;
 	}
 
-	basic_racional& operator += (const basic_racional<T>& ot) {
+	basic_rational& operator += (const basic_rational<T>& ot) {
 		numerator = numerator * ot.denominator + ot.numerator * denominator;
 		denominator *= ot.denominator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator + (const basic_racional<T>& ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator + (const basic_rational<T>& ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r += ot;
 		return r;
 	}
 
-	basic_racional& operator -= (const basic_racional<T>& ot) {
+	basic_rational& operator -= (const basic_rational<T>& ot) {
 		numerator = numerator * ot.denominator - ot.numerator * denominator;
 		denominator *= ot.denominator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator - (const basic_racional<T>& ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator - (const basic_rational<T>& ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r -= ot;
 		return r;
 	}
 
-	basic_racional& operator *= (const basic_racional<T>& ot) {
+	basic_rational& operator *= (const basic_rational<T>& ot) {
 		numerator *= ot.numerator;
 		denominator *= ot.denominator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator * (const basic_racional<T>& ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator * (const basic_rational<T>& ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r *= ot;
 		return r;
 	}
 
-	basic_racional& operator /= (const basic_racional<T>& ot) {
+	basic_rational& operator /= (const basic_rational<T>& ot) {
 		numerator *= ot.denominator;
 		denominator *= ot.numerator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator / (const basic_racional<T>& ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator / (const basic_rational<T>& ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r /= ot;
 		return r;
 	}
 
-	basic_racional& operator = (T ot) {
+	basic_rational& operator = (T ot) {
 		numerator = ot;
 		denominator = 1;
 		return *this;
 	}
 
-	basic_racional& operator += (T ot) {
+	basic_rational& operator += (T ot) {
 		numerator += ot * denominator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator + (T ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator + (T ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r += ot;
 		return r;
 	}
 
-	basic_racional& operator -= (T ot) {
+	basic_rational& operator -= (T ot) {
 		numerator -= ot * denominator;
 		denominator *= ot.denominator;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator - (T ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator - (T ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r -= ot;
 		return r;
 	}
 
-	basic_racional& operator *= (T ot) {
+	basic_rational& operator *= (T ot) {
 		numerator *= ot;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator * (T ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator * (T ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r *= ot;
 		return r;
 	}
 
-	basic_racional& operator /= (T ot) {
+	basic_rational& operator /= (T ot) {
 		denominator *= ot;
 		Simplification();
 		return *this;
 	}
 
-	basic_racional operator / (T ot) const {
-		basic_racional<T> r(numerator, denominator);
+	basic_rational operator / (T ot) const {
+		basic_rational<T> r(numerator, denominator);
 		r /= ot;
 		return r;
 	}
 
 	// rac <-> rac ----------------------------------------------------------------
 
-	bool operator < (const basic_racional<T>& ot) const {
+	bool operator < (const basic_rational<T>& ot) const {
 		return (numerator * ot.denominator) < (ot.numerator * denominator);
 	}
 
-	bool operator > (const basic_racional<T>& ot) const {
+	bool operator > (const basic_rational<T>& ot) const {
 		return ot < *this;
 	}
 
-	bool operator <= (const basic_racional<T>& ot) const {
+	bool operator <= (const basic_rational<T>& ot) const {
 		return !(*this > ot);
 	}
 
-	bool operator >= (const basic_racional<T>& ot) const {
+	bool operator >= (const basic_rational<T>& ot) const {
 		return !(*this < ot);
 	}
 
-	bool operator == (const basic_racional<T>& ot) const {
+	bool operator == (const basic_rational<T>& ot) const {
 		return (*this <= ot) && (*this >= ot);
 	}
 
-	bool operator != (const basic_racional<T>& ot) const {
+	bool operator != (const basic_rational<T>& ot) const {
 		return (*this < ot) || (*this > ot);
 	}
 
 	// rac <-> T ----------------------------------------------------------------
 
 	bool operator < (T ot) const {
-		basic_racional<T> r(ot);
+		basic_rational<T> r(ot);
 		return *this < r;
 	}
 
 	bool operator > (T ot) const {
-		basic_racional<T> r(ot);
+		basic_rational<T> r(ot);
 		return r < *this;
 	}
 
@@ -239,27 +239,27 @@ public:
 
 	// T <-> rac ----------------------------------------------------------------
 
-	friend bool operator < (T ot, basic_racional<T> th) {
+	friend bool operator < (T ot, const basic_rational<T>& th) {
 		return th > ot;
 	}
 
-	friend bool operator > (T ot, basic_racional<T> th) {
+	friend bool operator > (T ot, const basic_rational<T>& th) {
 		return ot < th;
 	}
 
-	friend bool operator <= (T ot, basic_racional<T> th) {
+	friend bool operator <= (T ot, const basic_rational<T>& th) {
 		return !(th > ot);
 	}
 
-	friend bool operator >= (T ot, basic_racional<T> th) {
+	friend bool operator >= (T ot, const basic_rational<T>& th) {
 		return !(th < ot);
 	}
 
-	friend bool operator == (T ot, basic_racional<T> th) {
+	friend bool operator == (T ot, const basic_rational<T>& th) {
 		return (th <= ot) && (*this >= ot);
 	}
 
-	friend bool operator != (const T& ot, basic_racional<T> th) {
+	friend bool operator != (T ot, const basic_rational<T>& th) {
 		return (th < ot) || (th > ot);
 	}
 
@@ -277,4 +277,4 @@ public:
 
 };
 
-typedef basic_racional<int> racional;
+typedef basic_rational<int> rational;
