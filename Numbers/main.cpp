@@ -3,6 +3,9 @@
 #include "Complex.hpp"
 #include "Rational.hpp"
 #include "Polynomial.hpp"
+#include "Field.hpp"
+
+using namespace sbl;
 
 int main() {
     rational r{ 2, 4 };
@@ -39,6 +42,11 @@ int main() {
     std::cout << ((2 * p) - p) << std::endl;
     std::cout << (p * p) << std::endl;
     std::cout << ((p * p) / p) << std::endl;
+
+    basic_field<7> z7 = 1;
+    std::cout << z7 << std::endl;
+    z7 = z7 + 11;
+    std::cout << z7 << std::endl;
 
     std::cin.ignore('\n');
 }

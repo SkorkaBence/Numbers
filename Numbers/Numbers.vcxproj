@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.hpp" />
+    <ClInclude Include="Field.hpp" />
     <ClInclude Include="Polynomial.hpp" />
     <ClInclude Include="Rational.hpp" />
   </ItemGroup>
