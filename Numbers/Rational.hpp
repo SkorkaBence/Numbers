@@ -61,11 +61,11 @@ namespace sbl {
         basic_rational(T n, T d) : numerator(n), denominator(d) {
             Simplification();
         }
-        basic_rational(const basic_rational<T>& r) : numerator(r.numerator), denominator(r.denominator) {}
+        basic_rational(const basic_rational& r) : numerator(r.numerator), denominator(r.denominator) {}
 
         ~basic_rational() {}
 
-        friend std::ostream& operator << (std::ostream& out, const basic_rational<T>& dt) {
+        friend std::ostream& operator << (std::ostream& out, const basic_rational& dt) {
             if (dt.denominator == 1) {
                 out << dt.numerator;
             } else {
@@ -74,60 +74,60 @@ namespace sbl {
             return out;
         }
 
-        basic_rational& operator = (const basic_rational<T>& ot) {
+        basic_rational& operator = (const basic_rational& ot) {
             numerator = ot.numerator;
             denominator = ot.denominator;
             return *this;
         }
 
-        basic_rational& operator += (const basic_rational<T>& ot) {
+        basic_rational& operator += (const basic_rational& ot) {
             numerator = numerator * ot.denominator + ot.numerator * denominator;
             denominator *= ot.denominator;
             Simplification();
             return *this;
         }
 
-        basic_rational operator + (const basic_rational<T>& ot) const {
-            basic_rational<T> r(numerator, denominator);
+        basic_rational operator + (const basic_rational& ot) const {
+            basic_rational r(numerator, denominator);
             r += ot;
             return r;
         }
 
-        basic_rational& operator -= (const basic_rational<T>& ot) {
+        basic_rational& operator -= (const basic_rational& ot) {
             numerator = numerator * ot.denominator - ot.numerator * denominator;
             denominator *= ot.denominator;
             Simplification();
             return *this;
         }
 
-        basic_rational operator - (const basic_rational<T>& ot) const {
-            basic_rational<T> r(numerator, denominator);
+        basic_rational operator - (const basic_rational& ot) const {
+            basic_rational r(numerator, denominator);
             r -= ot;
             return r;
         }
 
-        basic_rational& operator *= (const basic_rational<T>& ot) {
+        basic_rational& operator *= (const basic_rational& ot) {
             numerator *= ot.numerator;
             denominator *= ot.denominator;
             Simplification();
             return *this;
         }
 
-        basic_rational operator * (const basic_rational<T>& ot) const {
-            basic_rational<T> r(numerator, denominator);
+        basic_rational operator * (const basic_rational& ot) const {
+            basic_rational r(numerator, denominator);
             r *= ot;
             return r;
         }
 
-        basic_rational& operator /= (const basic_rational<T>& ot) {
+        basic_rational& operator /= (const basic_rational& ot) {
             numerator *= ot.denominator;
             denominator *= ot.numerator;
             Simplification();
             return *this;
         }
 
-        basic_rational operator / (const basic_rational<T>& ot) const {
-            basic_rational<T> r(numerator, denominator);
+        basic_rational operator / (const basic_rational& ot) const {
+            basic_rational r(numerator, denominator);
             r /= ot;
             return r;
         }
@@ -145,7 +145,7 @@ namespace sbl {
         }
 
         basic_rational operator + (T ot) const {
-            basic_rational<T> r(numerator, denominator);
+            basic_rational r(numerator, denominator);
             r += ot;
             return r;
         }
@@ -158,7 +158,7 @@ namespace sbl {
         }
 
         basic_rational operator - (T ot) const {
-            basic_rational<T> r(numerator, denominator);
+            basic_rational r(numerator, denominator);
             r -= ot;
             return r;
         }
@@ -170,7 +170,7 @@ namespace sbl {
         }
 
         basic_rational operator * (T ot) const {
-            basic_rational<T> r(numerator, denominator);
+            basic_rational r(numerator, denominator);
             r *= ot;
             return r;
         }
@@ -182,46 +182,46 @@ namespace sbl {
         }
 
         basic_rational operator / (T ot) const {
-            basic_rational<T> r(numerator, denominator);
+            basic_rational r(numerator, denominator);
             r /= ot;
             return r;
         }
 
         // rac <-> rac ----------------------------------------------------------------
 
-        bool operator < (const basic_rational<T>& ot) const {
+        bool operator < (const basic_rational& ot) const {
             return (numerator * ot.denominator) < (ot.numerator * denominator);
         }
 
-        bool operator > (const basic_rational<T>& ot) const {
+        bool operator > (const basic_rational& ot) const {
             return ot < *this;
         }
 
-        bool operator <= (const basic_rational<T>& ot) const {
+        bool operator <= (const basic_rational& ot) const {
             return !(*this > ot);
         }
 
-        bool operator >= (const basic_rational<T>& ot) const {
+        bool operator >= (const basic_rational& ot) const {
             return !(*this < ot);
         }
 
-        bool operator == (const basic_rational<T>& ot) const {
+        bool operator == (const basic_rational& ot) const {
             return (*this <= ot) && (*this >= ot);
         }
 
-        bool operator != (const basic_rational<T>& ot) const {
+        bool operator != (const basic_rational& ot) const {
             return (*this < ot) || (*this > ot);
         }
 
         // rac <-> T ----------------------------------------------------------------
 
         bool operator < (T ot) const {
-            basic_rational<T> r(ot);
+            basic_rational r(ot);
             return *this < r;
         }
 
         bool operator > (T ot) const {
-            basic_rational<T> r(ot);
+            basic_rational r(ot);
             return r < *this;
         }
 
@@ -243,27 +243,27 @@ namespace sbl {
 
         // T <-> rac ----------------------------------------------------------------
 
-        friend bool operator < (T ot, const basic_rational<T>& th) {
+        friend bool operator < (T ot, const basic_rational& th) {
             return th > ot;
         }
 
-        friend bool operator > (T ot, const basic_rational<T>& th) {
+        friend bool operator > (T ot, const basic_rational& th) {
             return ot < th;
         }
 
-        friend bool operator <= (T ot, const basic_rational<T>& th) {
+        friend bool operator <= (T ot, const basic_rational& th) {
             return !(th > ot);
         }
 
-        friend bool operator >= (T ot, const basic_rational<T>& th) {
+        friend bool operator >= (T ot, const basic_rational& th) {
             return !(th < ot);
         }
 
-        friend bool operator == (T ot, const basic_rational<T>& th) {
+        friend bool operator == (T ot, const basic_rational& th) {
             return (th <= ot) && (*this >= ot);
         }
 
-        friend bool operator != (T ot, const basic_rational<T>& th) {
+        friend bool operator != (T ot, const basic_rational& th) {
             return (th < ot) || (th > ot);
         }
 

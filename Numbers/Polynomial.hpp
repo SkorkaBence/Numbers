@@ -59,7 +59,7 @@ namespace sbl {
             }
             removeLeadingZeroes();
         }
-        basic_polynomial(const basic_polynomial<T>& copy) {
+        basic_polynomial(const basic_polynomial& copy) {
             resize(copy.size);
             for (int i = 0; i < copy.size; i++) {
                 numarr[i] = copy.numarr[i];
@@ -67,7 +67,7 @@ namespace sbl {
             removeLeadingZeroes();
         }
 
-        friend std::ostream& operator << (std::ostream& out, const basic_polynomial<T>& dt) {
+        friend std::ostream& operator << (std::ostream& out, const basic_polynomial& dt) {
             out << "P(x) =";
             if (dt.size == 0) {
                 out << " 0";
@@ -155,7 +155,7 @@ namespace sbl {
         }
 
         basic_polynomial operator + (T val) const {
-            basic_polynomial<T> p(*this);
+            basic_polynomial p(*this);
             p += val;
             return p;
         }
@@ -167,7 +167,7 @@ namespace sbl {
         }
 
         basic_polynomial operator - (T val) const {
-            basic_polynomial<T> p(*this);
+            basic_polynomial p(*this);
             p -= val;
             return p;
         }
@@ -181,7 +181,7 @@ namespace sbl {
         }
 
         basic_polynomial operator * (T val) const {
-            basic_polynomial<T> p(*this);
+            basic_polynomial p(*this);
             p *= val;
             return p;
         }
@@ -195,7 +195,7 @@ namespace sbl {
         }
 
         basic_polynomial operator / (T val) const {
-            basic_polynomial<T> p(*this);
+            basic_polynomial p(*this);
             p /= val;
             return p;
         }
@@ -218,15 +218,15 @@ namespace sbl {
 
         // T <-> Pol ----------------------------------------------------------------
 
-        friend basic_polynomial operator + (T val, const basic_polynomial<T>& pol) {
-            basic_polynomial<T> p(pol);
+        friend basic_polynomial operator + (T val, const basic_polynomial& pol) {
+            basic_polynomial p(pol);
             p += val;
             p.removeLeadingZeroes();
             return p;
         }
 
-        friend basic_polynomial operator - (T val, const basic_polynomial<T>& pol) {
-            basic_polynomial<T> p(pol);
+        friend basic_polynomial operator - (T val, const basic_polynomial& pol) {
+            basic_polynomial p(pol);
             for (unsigned int i = 0; u < p.size; i++) {
                 p.numarr[i] *= -1;
             }
@@ -235,15 +235,15 @@ namespace sbl {
             return p;
         }
 
-        friend basic_polynomial operator * (T val, const basic_polynomial<T>& pol) {
-            basic_polynomial<T> p(pol);
+        friend basic_polynomial operator * (T val, const basic_polynomial& pol) {
+            basic_polynomial p(pol);
             p *= val;
             p.removeLeadingZeroes();
             return p;
         }
 
-        friend basic_polynomial operator / (T val, const basic_polynomial<T>& pol) {
-            basic_polynomial<T> p(pol);
+        friend basic_polynomial operator / (T val, const basic_polynomial& pol) {
+            basic_polynomial p(pol);
             for (unsigned int i = 0; i < p.size; i++) {
                 if (p.numarr[i] != 0) {
                     p.numarr[i] = 1 / p.numarr[i];
@@ -254,17 +254,17 @@ namespace sbl {
             return p;
         }
 
-        friend bool operator == (T val, const basic_polynomial<T>& pol) {
+        friend bool operator == (T val, const basic_polynomial& pol) {
             return pol == val;
         }
 
-        friend bool operator != (T val, const basic_polynomial<T>& pol) {
+        friend bool operator != (T val, const basic_polynomial& pol) {
             return pol != val;
         }
 
         // Pol <-> Pol ----------------------------------------------------------------
 
-        basic_polynomial& operator = (const basic_polynomial<T>& pol) {
+        basic_polynomial& operator = (const basic_polynomial& pol) {
             resize(pol.size);
             for (unsigned int i = 0; i < size; i++) {
                 numarr[i] = pol.numarr[i];
@@ -273,7 +273,7 @@ namespace sbl {
             return *this;
         }
 
-        basic_polynomial& operator += (const basic_polynomial<T>& pol) {
+        basic_polynomial& operator += (const basic_polynomial& pol) {
             int d1 = deg();
             int d2 = pol.deg();
             int mx = (d1 > d2 ? d1 : d2);
@@ -283,13 +283,13 @@ namespace sbl {
             return *this;
         }
 
-        basic_polynomial operator + (const basic_polynomial<T>& pol) const {
-            basic_polynomial<T> p(*this);
+        basic_polynomial operator + (const basic_polynomial& pol) const {
+            basic_polynomial p(*this);
             p += pol;
             return p;
         }
 
-        basic_polynomial& operator -= (const basic_polynomial<T>& pol) {
+        basic_polynomial& operator -= (const basic_polynomial& pol) {
             int min = size > pol.size ? pol.size : size;
             int max = size < pol.size ? pol.size : size;
             resize(max);
@@ -300,19 +300,19 @@ namespace sbl {
             return *this;
         }
 
-        basic_polynomial operator - (const basic_polynomial<T>& pol) const {
-            basic_polynomial<T> p(*this);
+        basic_polynomial operator - (const basic_polynomial& pol) const {
+            basic_polynomial p(*this);
             p -= pol;
             return p;
         }
 
-        basic_polynomial& operator *= (const basic_polynomial<T>& pol) {
+        basic_polynomial& operator *= (const basic_polynomial& pol) {
             *this = *this * pol;
             return *this;
         }
 
-        basic_polynomial operator * (const basic_polynomial<T>& pol) const {
-            basic_polynomial<T> p;
+        basic_polynomial operator * (const basic_polynomial& pol) const {
+            basic_polynomial p;
             int s1 = deg();
             int s2 = pol.deg();
             for (int i = 0; i < ((s1 + 1) + (s2 + 1)); i++) {
@@ -325,30 +325,30 @@ namespace sbl {
             return p;
         }
 
-        basic_polynomial& operator /= (const basic_polynomial<T>& pol) {
+        basic_polynomial& operator /= (const basic_polynomial& pol) {
             *this = *this / pol;
             return *this;
         }
 
-        basic_polynomial operator / (const basic_polynomial<T>& pol) const {
-            basic_polynomial<T> q;
-            basic_polynomial<T> r;
+        basic_polynomial operator / (const basic_polynomial& pol) const {
+            basic_polynomial q;
+            basic_polynomial r;
             divideWithResidue(pol, q, r);
             return q;
         }
 
-        void divideWithResidue(const basic_polynomial<T>& pol, basic_polynomial<T>& sol, basic_polynomial<T>& res) const {
+        void divideWithResidue(const basic_polynomial& pol, basic_polynomial& sol, basic_polynomial& res) const {
             if (pol.isNull()) {
                 throw divisionByZeroException();
             }
 
-            basic_polynomial<T> q;
-            basic_polynomial<T> r(*this);
+            basic_polynomial q;
+            basic_polynomial r(*this);
 
             while (!r.isNull() && r.deg() >= pol.deg()) {
                 T leading_v = r.getValue(r.deg()) / pol.getValue(pol.deg());
                 int leadign_p = r.deg() - pol.deg();
-                basic_polynomial<T> t;
+                basic_polynomial t;
                 t.setValue(leadign_p, leading_v);
                 q += t;
                 r -= t * pol;
@@ -356,6 +356,22 @@ namespace sbl {
 
             sol = q;
             res = r;
+        }
+
+        basic_polynomial derivate() {
+            basic_polynomial p;
+            for (int i = size - 1; i > 0; i--) {
+                p.setValue(i - 1, getValue(i) * i);
+            }
+            return p;
+        }
+
+        basic_polynomial derivate(unsigned int n) {
+            basic_polynomial p(*this);
+            for (unsigned int i = 0; i < n; i++) {
+                p = p.derivate();
+            }
+            return p;
         }
 
     };

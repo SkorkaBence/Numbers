@@ -34,7 +34,7 @@ int main() {
     std::cout << emeletestort << std::endl;
 
     basic_polynomial<rational> p;
-    p.setValue(6, 15);
+    p.setValue(6, rational{123, 56});
     p.setValue(2, 6);
 
     std::cout << p << std::endl;
@@ -42,6 +42,8 @@ int main() {
     std::cout << ((2 * p) - p) << std::endl;
     std::cout << (p * p) << std::endl;
     std::cout << ((p * p) / p) << std::endl;
+    std::cout << (p.derivate()) << std::endl;
+    std::cout << (p.derivate(3)) << std::endl;
 
     basic_field<7> z7 = 1;
     std::cout << z7 << std::endl;
