@@ -45,7 +45,7 @@ int main() {
 
     basic_field<7> z7 = 1;
     std::cout << z7 << std::endl;
-    z7 = z7 + 11;
+    z7 = z7 - 11;
     std::cout << z7 << std::endl;
 
     std::cin.ignore('\n');

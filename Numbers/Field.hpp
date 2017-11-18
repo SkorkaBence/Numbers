@@ -4,7 +4,7 @@
 
 namespace sbl {
 
-    template<int N, typename C = unsigned int>
+    template<int N, typename C = int>
     class basic_field {
     private:
         C value = 0;
@@ -14,7 +14,13 @@ namespace sbl {
         basic_field(const basic_field& copy) : value(copy.value) {}
 
         void setValue(C val) {
-            value = val % N;
+            value = val;
+            while (value > N) {
+                value -= N;
+            }
+            while (value < 0) {
+                value += N;
+            }
         }
 
         operator C () {
