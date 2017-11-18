@@ -4,6 +4,8 @@
 
 template<typename T>
 class basic_rational {
+public:
+    class divisionByZeroException {};
 private:
 
     T numerator;
@@ -43,7 +45,7 @@ private:
         numerator /= div;
         denominator /= div;
         if (denominator == 0) {
-            throw 0;
+            throw divisionByZeroException();
         }
         if (numerator == 0) {
             denominator = 1;

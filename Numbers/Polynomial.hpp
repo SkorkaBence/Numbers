@@ -4,6 +4,8 @@
 
 template<typename T>
 class basic_polynomial {
+public:
+    class divisionByZeroException {};
 private:
     T* numarr = nullptr;
     unsigned int size = 0;
@@ -132,7 +134,7 @@ public:
 
     bool isNull() const {
         if (size == 0) {
-            return 0;
+            return true;
         }
         unsigned int i = size - 1;
         while (i >= 0 && numarr[i] == 0) {
@@ -326,8 +328,15 @@ public:
     }
 
     basic_polynomial operator / (const basic_polynomial<T>& pol) const {
+        basic_polynomial<T> q;
+        basic_polynomial<T> r;
+        divideWithResidue(pol, q, r);
+        return q;
+    }
+
+    void divideWithResidue(const basic_polynomial<T>& pol, basic_polynomial<T>& sol, basic_polynomial<T>& res) const {
         if (pol.isNull()) {
-            throw 0;
+            throw divisionByZeroException();
         }
 
         basic_polynomial<T> q;
@@ -342,11 +351,8 @@ public:
             r -= t * pol;
         }
 
-        if (r.isNull()) {
-            throw "not divisable";
-        }
-
-        return q;
+        sol = q;
+        res = r;
     }
 
 };
