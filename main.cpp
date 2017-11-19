@@ -49,6 +49,4 @@ int main() {
     std::cout << z7 << std::endl;
     z7 = z7 - 11;
     std::cout << z7 << std::endl;
-
-    std::cin.ignore('\n');
 }

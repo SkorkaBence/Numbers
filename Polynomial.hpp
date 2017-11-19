@@ -227,7 +227,7 @@ namespace sbl {
 
         friend basic_polynomial operator - (T val, const basic_polynomial& pol) {
             basic_polynomial p(pol);
-            for (unsigned int i = 0; u < p.size; i++) {
+            for (unsigned int i = 0; i < p.size; i++) {
                 p.numarr[i] *= -1;
             }
             p += val;

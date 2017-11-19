@@ -8,19 +8,24 @@ namespace sbl {
     class basic_field {
     private:
         C value = 0;
+
+        C calculateValue(int v) {
+            while (v > N) {
+                v -= N;
+            }
+            while (v < 0) {
+                v += N;
+            }
+            return v;
+        }
+
     public:
         basic_field() {};
         basic_field(C in) : value(in) {};
         basic_field(const basic_field& copy) : value(copy.value) {}
 
         void setValue(C val) {
-            value = val;
-            while (value > N) {
-                value -= N;
-            }
-            while (value < 0) {
-                value += N;
-            }
+            value = calculateValue(val);
         }
 
         operator C () {
@@ -77,6 +82,10 @@ namespace sbl {
             ou >> v;
             f.setValue(v);
             return ou;
+        }
+
+        bool operator == (C ch) {
+            return value == calculateValue(ch);
         }
     };
 

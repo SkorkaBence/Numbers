@@ -260,7 +260,7 @@ namespace sbl {
         }
 
         friend bool operator == (T ot, const basic_rational& th) {
-            return (th <= ot) && (*this >= ot);
+            return (th <= ot) && (th >= ot);
         }
 
         friend bool operator != (T ot, const basic_rational& th) {
